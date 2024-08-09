@@ -158,8 +158,7 @@ class AdvancedFileOutput extends LogOutput {
     // If event level is present in writeImmediately, flush the complete buffer
     // along with any other possible elements that accumulated since
     // the last timer tick. Additionally, if the buffer is full.
-    if (_buffer.length > _maxBufferSize ||
-        _writeImmediately.contains(event.level)) {
+    if (_buffer.length > _maxBufferSize || _writeImmediately.contains(event.level)) {
       _flushBuffer();
     }
   }
@@ -175,8 +174,7 @@ class AdvancedFileOutput extends LogOutput {
 
   Future<void> _updateTargetFile() async {
     try {
-      if (await _file.exists() &&
-          await _file.length() > _maxFileSizeKB * 1024) {
+      if (await _file.exists() && await _file.length() > _maxFileSizeKB * 1024) {
         // Rotate the log file
         await _closeSink();
         await _file.rename('$_path/${_fileNameFormatter(DateTime.now())}');
@@ -218,12 +216,11 @@ class AdvancedFileOutput extends LogOutput {
         .toList();
 
     // If the number of files is less than the limit, don't delete anything
-    if (files.length <= _maxRotatedFilesCount!) return;
+    if (files.length <= _maxRotatedFilesCount) return;
 
     files.sort(_fileSorter);
 
-    final filesToDelete =
-        files.sublist(0, files.length - _maxRotatedFilesCount!);
+    final filesToDelete = files.sublist(0, files.length - _maxRotatedFilesCount);
     for (final file in filesToDelete) {
       try {
         await file.delete();

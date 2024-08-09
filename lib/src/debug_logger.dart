@@ -1,8 +1,8 @@
 import 'package:hbologger/src/log_level_enum.dart';
-import 'package:hbologger/src/logger.dart';
+import 'package:hbologger/src/logging.dart';
 import 'package:hbologger/src/used_plugin.dart';
 
-class DebugLogger extends Logger {
+class DebugLogger extends Logging {
   @override
   void logMessage(String message, LogLevel level) {
     if (level == LogLevel.DEBUG) {
