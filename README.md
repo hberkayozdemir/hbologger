@@ -16,24 +16,29 @@ Add `hbologger` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  hbologger: ^0.0.1 `
+  hbologger: ^0.0.1
+```
 
-Then, run `flutter pub get` to install the package.
+## GUIDE
+### Log Levels
+The hbologger package supports three log levels:
 
-Usage
------
+- DEBUG: Logs detailed information typically useful for debugging.
+- INFO: Logs general information about the app's operation.
+- ERROR: Logs error messages, including stack traces, when things go wrong.
+
+
+```dart
+loggerChain.logMessage('This is a debug message', LogLevel.DEBUG);
+loggerChain.logMessage('This is an info message', LogLevel.INFO);
+loggerChain.logMessage('This is an error message', LogLevel.ERROR);
+```
+## Usage
 
 ### Setting Up the Chain of Responsibility
-
-The package provides multiple loggers (`DebugLogger`, `InfoLogger`, `ErrorLogger`) that are chained together to handle logging based on the severity of the log message.
-
-#### Example:
-
-dart
-
-Copy code
-
-`import 'package:hbologger/src/loggers/debug_logger.dart';
+- The package provides multiple loggers (DebugLogger, InfoLogger, ErrorLogger) that are chained together to handle logging based on the severity of the log message.
+```dart
+import 'package:hbologger/src/loggers/debug_logger.dart';
 import 'package:hbologger/src/loggers/info_logger.dart';
 import 'package:hbologger/src/loggers/error_logger.dart';
 import 'package:hbologger/src/log_level_enum.dart';
@@ -48,17 +53,12 @@ void main() {
   loggerChain.logMessage('This is a debug message', LogLevel.DEBUG);
   loggerChain.logMessage('This is an info message', LogLevel.INFO);
   loggerChain.logMessage('This is an error message', LogLevel.ERROR);
-}`
-
-### Dio Integration
-
-To log HTTP requests, responses, and errors, use the `HboLoggerInterceptor`:
-
-dart
-
-Copy code
-
-`import 'package:dio/dio.dart';
+}
+```
+### DIO INTEGRATION
+- To log HTTP requests, responses, and errors, use the HboLoggerInterceptor:
+```dart
+import 'package:dio/dio.dart';
 import 'package:hbologger/hbologger_interceptor.dart';
 
 void main() {
@@ -73,17 +73,13 @@ void main() {
   }).catchError((error) {
     print(error);
   });
-}`
+}
+```
 
 ### Riverpod Integration
-
-To log provider lifecycle events, use the `LoggerObserver` with Riverpod:
-
-dart
-
-Copy code
-
-`import 'package:flutter/material.dart';
+- To log provider lifecycle events, use the LoggerObserver with Riverpod:
+```dart
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hbologger/logger_observer.dart';
 
@@ -122,17 +118,12 @@ class MyHomePage extends ConsumerWidget {
       ),
     );
   }
-}`
-
-### Navigator Integration
-
-To log navigation events in your Flutter app, use the `LoggingNavigatorObserver`:
-
-dart
-
-Copy code
-
-`import 'package:flutter/material.dart';
+}
+```
+### NAVIGATOR INTEGRATION
+- To log navigation events in your Flutter app, use the LoggingNavigatorObserver:
+```dart
+import 'package:flutter/material.dart';
 import 'package:hbologger/logging_navigator_observer.dart';
 
 void main() {
@@ -162,48 +153,8 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
-}`
+}
+```
 
-Log Levels
-----------
-
-The `hbologger` package supports three log levels:
-
--   **DEBUG**: Logs detailed information typically useful for debugging.
--   **INFO**: Logs general information about the app's operation.
--   **ERROR**: Logs error messages, including stack traces, when things go wrong.
-
-### Example:
-
-dart
-
-Copy code
-
-`loggerChain.logMessage('This is a debug message', LogLevel.DEBUG);
-loggerChain.logMessage('This is an info message', LogLevel.INFO);
-loggerChain.logMessage('This is an error message', LogLevel.ERROR);`
-
-Contributing
-------------
-
+## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on [GitHub](https://github.com/hberkayozdemir/hbologger).
-
-License
--------
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-markdown
-
-Copy code
-
- `### Explanation:
-
-- **Features**: Lists the key features of the `hbologger` package.
-- **Installation**: Provides instructions on how to add the package to a Flutter project.
-- **Usage**: Detailed examples on how to set up and use the package with Dio, Riverpod, and Flutter's navigation system.
-- **Log Levels**: Explains the different log levels (`DEBUG`, `INFO`, `ERROR`) supported by the package.
-- **Contributing**: Encourages users to contribute to the project and provides a link to the GitHub repository.
-- **License**: Mentions the MIT License and references the `LICENSE` file.
-
-This `README.md` should provide a comprehensive overview of your package and guide
