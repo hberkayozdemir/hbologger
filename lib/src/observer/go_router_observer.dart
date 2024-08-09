@@ -1,39 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:hbologger/hbologger.dart';
 
-import 'package:hbologger/src/used_plugin.dart';
+import 'package:hbologger/src/log_level_enum.dart';
 
 class LoggingNavigatorObserver extends NavigatorObserver {
+  final Logging loggerChain;
+
+  LoggingNavigatorObserver()
+      : loggerChain = DebugLogger()
+          ..setNextLogger(InfoLogger())
+          ..setNextLogger(ErrorLogger());
+
   @override
   void didPush(Route route, Route? previousRoute) {
     super.didPush(route, previousRoute);
-    logger.i('Pushed route: ${route.settings.name ?? route.settings}');
+    loggerChain.logMessage(
+      'Pushed route: ${route.settings.name ?? route.settings}',
+      LogLevel.INFO,
+    );
     if (previousRoute != null) {
-      logger.d('Previous route: ${previousRoute.settings.name ?? previousRoute.settings}');
+      loggerChain.logMessage(
+        'Previous route: ${previousRoute.settings.name ?? previousRoute.settings}',
+        LogLevel.DEBUG,
+      );
     }
   }
 
   @override
   void didPop(Route route, Route? previousRoute) {
     super.didPop(route, previousRoute);
-    logger.i('Popped route: ${route.settings.name ?? route.settings}');
+    loggerChain.logMessage(
+      'Popped route: ${route.settings.name ?? route.settings}',
+      LogLevel.INFO,
+    );
     if (previousRoute != null) {
-      logger.d('Previous route: ${previousRoute.settings.name ?? previousRoute.settings}');
+      loggerChain.logMessage(
+        'Previous route: ${previousRoute.settings.name ?? previousRoute.settings}',
+        LogLevel.DEBUG,
+      );
     }
   }
 
   @override
   void didRemove(Route route, Route? previousRoute) {
     super.didRemove(route, previousRoute);
-    logger.i('Removed route: ${route.settings.name ?? route.settings}');
+    loggerChain.logMessage(
+      'Removed route: ${route.settings.name ?? route.settings}',
+      LogLevel.INFO,
+    );
     if (previousRoute != null) {
-      logger.d('Previous route: ${previousRoute.settings.name ?? previousRoute.settings}');
+      loggerChain.logMessage(
+        'Previous route: ${previousRoute.settings.name ?? previousRoute.settings}',
+        LogLevel.DEBUG,
+      );
     }
   }
 
   @override
   void didReplace({Route? newRoute, Route? oldRoute}) {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
-    logger.i(
-        'Replaced route: ${oldRoute?.settings.name ?? oldRoute?.settings} with ${newRoute?.settings.name ?? newRoute?.settings}');
+    loggerChain.logMessage(
+      'Replaced route: ${oldRoute?.settings.name ?? oldRoute?.settings} with ${newRoute?.settings.name ?? newRoute?.settings}',
+      LogLevel.INFO,
+    );
   }
 }
