@@ -1,6 +1,6 @@
 name: hbologger
 description: "A Flutter package for implementing the Chain of Responsibility pattern with error logging using Riverpod and Dio."
-version: 0.0.4
+version: 0.0.5
 homepage: "https://pub.dev/packages/hbologger"
 
 environment:
